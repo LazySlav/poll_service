@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Create a Poll</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="pollTitle">Poll Title</label>
+        <input type="text" class="form-control" id="pollTitle" name="pollTitle" required>
+    </div>
+    <div class="form-group">
+        <label for="pollDescription">Poll Description</label>
+        <textarea class="form-control" id="pollDescription" name="pollDescription"></textarea>
+    </div>
+    
+    <div id="questions"></div>
+
+    <button type="button" class="btn btn-secondary" onclick="addSingleChoice()">Add Single Choice Question</button>
+    <button type="button" class="btn btn-secondary" onclick="addMultipleChoice()">Add Multiple Choice Question</button>
+
+    <button type="submit" class="btn btn-primary mt-3">Finish Creating Poll</button>
+</form>
+
+<script>
+function addSingleChoice() {
+    const questionDiv = document.createElement('div');
+    questionDiv.classList.add('question');
+
+    questionDiv.innerHTML = 
+        <h5>Single Choice Question</h5>
+        <input type="text" placeholder="Question Title" class="form-control" required>
+        <input type="text" placeholder="Answer Option 1" class="form-control" required>
+        <input type="text" placeholder="Answer Option 2" class="form-control">
+        <button type="button" onclick="addAnswerOption(this)">Add Answer Option</button>
+        <hr/>
+    ;
+    
+    document.getElementById('questions').appendChild(questionDiv);
+}
+
+function addMultipleChoice() {
+    const questionDiv = document.createElement('div');
+    questionDiv.classList.add('question');
+
+    questionDiv.innerHTML = 
+        <h5>Multiple Choice Question</h5>
+        <input type="text" placeholder="Question Title" class="form-control" required>
+        <input type="text" placeholder="Answer Option 1" class="form-control" required>
+        <input type="text" placeholder="Answer Option 2" class="form-control">
+        <button type="button" onclick="addAnswerOption(this)">Add Answer Option</button>
+        <hr/>
+    ;
+    
+    document.getElementById('questions').appendChild(questionDiv);
+}
+
+function addAnswerOption(button) {
+    const parentDiv = button.parentNode;
+    
+    const newOption = document.createElement('input');
+    newOption.type = 'text';
+    newOption.placeholder = 'Additional Answer Option';
+    newOption.className = 'form-control mt-2';
+    
+    parentDiv.appendChild(newOption);
+}
+</script>
+
+{% endblock %}
